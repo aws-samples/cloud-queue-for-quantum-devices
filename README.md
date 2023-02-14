@@ -26,7 +26,7 @@ $ amplify init
 ? Do you want to use an AWS profile? Y (this should be the profile you created in step #4)
 ```
 
-5. To deploy the application (include the UI) to the cloud, run `amplify publish`.
+5. To deploy the application (include the UI) to the cloud, run `amplify push`, then `amplify publish`.
 6. Now, you will create an Admin user to access the UI and the APIs. Run the following commands:
 ```
 export COGNITO_USER_POOL_ID=$(jq -r '.auth[(.auth | keys)[0]].output.UserPoolId' ./amplify/#current-cloud-backend/amplify-meta.json)
