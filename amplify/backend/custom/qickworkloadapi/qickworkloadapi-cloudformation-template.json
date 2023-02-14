@@ -1,0 +1,1885 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "env": {
+      "Type": "String"
+    },
+    "authqickworkloadmgmtf902b9a7UserPoolId": {
+      "Type": "String",
+      "Description": "Input parameter describing UserPoolId attribute for auth/qickworkloadmgmtf902b9a7 resource"
+    },
+    "functionListWorkName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/ListWork resource"
+    },
+    "functionListWorkArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/ListWork resource"
+    },
+    "functionCreateWorkName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/CreateWork resource"
+    },
+    "functionCreateWorkArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/CreateWork resource"
+    },
+    "functionListDevicesName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/ListDevices resource"
+    },
+    "functionListDevicesArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/ListDevices resource"
+    },
+    "functionGetDeviceWorkName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/GetDeviceWork resource"
+    },
+    "functionGetDeviceWorkArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/GetDeviceWork resource"
+    },
+    "functionPutDeviceWorkName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/PutDeviceWork resource"
+    },
+    "functionPutDeviceWorkArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/PutDeviceWork resource"
+    },
+    "functionUpdateDeviceName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/UpdateDevice resource"
+    },
+    "functionUpdateDeviceArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/UpdateDevice resource"
+    },
+    "functionGetDeviceName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/GetDevice resource"
+    },
+    "functionGetDeviceArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/GetDevice resource"
+    },
+    "functionGetWorkName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/GetWork resource"
+    },
+    "functionGetWorkArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/GetWork resource"
+    },
+    "functionAddUserName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/AddUser resource"
+    },
+    "functionAddUserArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/AddUser resource"
+    },
+    "functionAddDeviceName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/AddDevice resource"
+    },
+    "functionAddDeviceArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/AddDevice resource"
+    },
+    "functionAuthorizerName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/Authorizer resource"
+    },
+    "functionAuthorizerArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/Authorizer resource"
+    }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "functionListWorkPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionListWorkName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionCreateWorkPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionCreateWorkName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionListDevicesPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionListDevicesName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionGetDeviceWorkPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionGetDeviceWorkName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionPutDeviceWorkPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionPutDeviceWorkName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionUpdateDevicePermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionUpdateDeviceName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionGetDevicePermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionGetDeviceName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionGetWorkPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionGetWorkName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionAddUserPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionAddUserName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionAddDevicePermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionAddDeviceName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/*/*/*"
+            ]
+          ]
+        }
+      }
+    },
+    "functionAuthorizerPermissionqickworkloadapi": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionAuthorizerName"
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:aws:execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "qickworkloadapi"
+              },
+              "/authorizers/*"
+            ]
+          ]
+        }
+      }
+    },
+    "qickworkloadapi": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Body": {
+          "swagger": "2.0",
+          "info": {
+            "version": "2018-05-24T17:52:00Z",
+            "title": "qickworkloadapi"
+          },
+          "host": {
+            "Fn::Join": [
+              "",
+              [
+                "apigateway.",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ".amazonaws.com"
+              ]
+            ]
+          },
+          "basePath": {
+            "Fn::If": [
+              "ShouldNotCreateEnvResources",
+              "/Prod",
+              {
+                "Fn::Join": [
+                  "",
+                  [
+                    "/",
+                    {
+                      "Ref": "env"
+                    }
+                  ]
+                ]
+              }
+            ]
+          },
+          "schemes": [
+            "https"
+          ],
+          "x-amazon-apigateway-request-validators": {
+            "all": {
+              "validateRequestBody": true,
+              "validateRequestParameters": true
+            }
+          },
+          "x-amazon-apigateway-request-validator": "all",
+          "paths": {
+            "/workloads": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "get": {
+                "description": "Get list of workloads",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "query",
+                    "name": "DeviceId",
+                    "required": false,
+                    "schema": {
+                      "type": "string"
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "type": "object",
+                      "$ref": "#/definitions/ListWorkResponseSchema",
+                      "example": {
+                        "Items": [
+                          {
+                            "WorkId": "6fc04e4d-b382-4588-a8e0-d5079e96c2a1",
+                            "UserGivenName": "John Doe",
+                            "Priority": "LOW",
+                            "DeviceId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                            "ReadyAt": "2022-11-16T03:05:27.370Z",
+                            "WorkStatus": "EXECUTING",
+                            "CreatedAt": "2022-11-16T03:05:26.176Z"
+                          },
+                          {
+                            "WorkId": "9e42b310-7fa6-4df4-80c6-dc425cae8da9",
+                            "UserGivenName": "John Doe",
+                            "Priority": "LOW",
+                            "DeviceId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                            "ReadyAt": "2022-11-15T22:23:46.307Z",
+                            "WorkStatus": "DONE",
+                            "CreatedAt": "2022-11-15T22:23:45.082Z"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionListWorkArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              },
+              "post": {
+                "description": "Add a new workload",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "body",
+                    "name": "CreateWorkRequestSchema",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/CreateWorkRequestSchema",
+                      "example": {
+                        "DeviceId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                        "Priority": "LOW"
+                      }
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/CreateWorkResponseSchema",
+                      "example": {
+                        "WorkId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                        "UploadUrl": "https://uploadurl/file"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionCreateWorkArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/workloads/{WorkId}": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "get": {
+                "description": "Get details of a workload",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "WorkId",
+                    "required": true
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/GetWorkResponseSchema",
+                      "example": {
+                        "WorkId": "9e42b310-7fa6-4df4-80c6-dc425cae8da9",
+                        "CreatedAt": "2022-11-15T22:23:45.082Z",
+                        "ReadyAt": "2022-11-15T22:23:46.307Z",
+                        "WorkStatus": "DONE",
+                        "WorkloadUrl": "https://url/workloadurl",
+                        "WorkloadResultUrl": "https://url/workloadresultsurl"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionGetWorkArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/devices": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "get": {
+                "description": "Get details of a device",
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/definitions/GetDeviceResponseSchema"
+                      },
+                      "example": [
+                        {
+                          "DeviceId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                          "DeviceName": "QICK Device A",
+                          "LastRefreshed": "2022-11-15T22:22:56.327Z",
+                          "DeviceStatus": "OFFLINE",
+                          "RefreshTimeout": 60
+                        }
+                      ]
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionListDevicesArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              },
+              "post": {
+                "description": "Add a new device",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "body",
+                    "name": "AddDeviceRequestSchema",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/AddDeviceRequestSchema",
+                      "example": {
+                        "DeviceName": "QICK Device A",
+                        "RefreshTimeout": 60
+                      }
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/AddDeviceResponseSchema",
+                      "example": {
+                        "DeviceId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                        "DeviceName": "QICK Device A",
+                        "ClientId": "6g5iilu7plkplh95gi5rjb9kg2",
+                        "ClientSecret": "at51f96uf022kvdkvn2sgohqc8j1sap16kk6f0m2sknj6qerote"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionAddDeviceArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/devices/{DeviceId}": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "get": {
+                "description": "Get details of a device",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "DeviceId",
+                    "required": true
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/GetDeviceResponseSchema",
+                      "example": {
+                        "DeviceId": "8eab377c-ad1f-4796-9f18-a640507edf58",
+                        "DeviceStatus": "OFFLINE",
+                        "LastRefreshed": "2022-11-15T22:00:35.042Z",
+                        "RefreshTimeout": 60,
+                        "DeviceConfigurationUrl": "https://url/device"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionGetDeviceArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              },
+              "put": {
+                "description": "Update the status and configuration of a device",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "DeviceId",
+                    "required": true
+                  },
+                  {
+                    "in": "body",
+                    "name": "UpdateDeviceRequestSchema",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/UpdateDeviceRequestSchema",
+                      "example": {
+                        "DeviceStatus": "ONLINE",
+                        "DeviceConfigurationFileExtension": "txt"
+                      }
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/UpdateDeviceResponseSchema",
+                      "example": {
+                        "DeviceId": "8eab377c-ad1f-4796-9f18-a640507edf58",
+                        "UploadUrl": "https://url/device"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionUpdateDeviceArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/devices/{DeviceId}/workload": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "get": {
+                "description": "Get the next workload to execute for a device",
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "DeviceId",
+                    "required": true
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/GetDeviceWorkResponseSchema"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionGetDeviceWorkArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/devices/{DeviceId}/workloads/{WorkId}": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "put": {
+                "description": "Update the status and results of a workload",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "path",
+                    "name": "DeviceId",
+                    "required": true
+                  },
+                  {
+                    "in": "path",
+                    "name": "WorkId",
+                    "required": true
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/PutDeviceWorkResponseSchema",
+                      "example": {
+                        "WorkId": "87c2aa84-5f39-4f05-b945-bfe50042d4ba",
+                        "UploadUrl": "https://uploadurl/file"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionPutDeviceWorkArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            },
+            "/users": {
+              "options": {
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "headers": {
+                      "Access-Control-Allow-Origin": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Methods": {
+                        "type": "string"
+                      },
+                      "Access-Control-Allow-Headers": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200",
+                      "responseParameters": {
+                        "method.response.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+                        "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                        "method.response.header.Access-Control-Allow-Origin": "'*'"
+                      }
+                    }
+                  },
+                  "requestTemplates": {
+                    "application/json": "{\"statusCode\": 200}"
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "type": "mock"
+                }
+              },
+              "post": {
+                "description": "Add a user",
+                "consumes": [
+                  "application/json"
+                ],
+                "produces": [
+                  "application/json"
+                ],
+                "parameters": [
+                  {
+                    "in": "body",
+                    "name": "AddUserRequestSchema",
+                    "required": true,
+                    "schema": {
+                      "$ref": "#/definitions/AddUserRequestSchema",
+                      "example": {
+                        "Email": "test@email.com",
+                        "FullName": "John Doe"
+                      }
+                    }
+                  }
+                ],
+                "responses": {
+                  "200": {
+                    "description": "200 response",
+                    "schema": {
+                      "$ref": "#/definitions/AddUserResponseSchema"
+                    }
+                  }
+                },
+                "x-amazon-apigateway-integration": {
+                  "responses": {
+                    "default": {
+                      "statusCode": "200"
+                    }
+                  },
+                  "uri": {
+                    "Fn::Join": [
+                      "",
+                      [
+                        "arn:aws:apigateway:",
+                        {
+                          "Ref": "AWS::Region"
+                        },
+                        ":lambda:path/2015-03-31/functions/",
+                        {
+                          "Ref": "functionAddUserArn"
+                        },
+                        "/invocations"
+                      ]
+                    ]
+                  },
+                  "passthroughBehavior": "when_no_match",
+                  "httpMethod": "POST",
+                  "type": "aws_proxy"
+                },
+                "security": [
+                  {
+                    "LambdaAuthorizer": []
+                  }
+                ]
+              }
+            }
+          },
+          "securityDefinitions": {
+            "LambdaAuthorizer": {
+              "type": "apiKey",
+              "name": "Authorization",
+              "in": "header",
+              "x-amazon-apigateway-authtype": "oauth2",
+              "x-amazon-apigateway-authorizer": {
+                "type": "token",
+                "authorizerUri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:aws:apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/arn:aws:lambda:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":",
+                      {
+                        "Ref": "AWS::AccountId"
+                      },
+                      ":function:",
+                      {
+                        "Ref": "functionAuthorizerName"
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                },
+                "authorizerResultTtlInSeconds": 60
+              }
+            }
+          },
+          "definitions": {
+            "UpdateDeviceRequestSchema": {
+              "type": "object",
+              "required": [
+                "DeviceStatus",
+                "DeviceConfigurationFileExtension"
+              ],
+              "properties": {
+                "DeviceStatus": {
+                  "type": "string",
+                  "enum": [
+                    "BUSY",
+                    "ONLINE",
+                    "OFFLINE"
+                  ]
+                },
+                "Filename": {
+                  "type": "string"
+                }
+              },
+              "title": "UpdateDevice Request Schema"
+            },
+            "UpdateDeviceResponseSchema": {
+              "type": "object",
+              "properties": {
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "UploadUrl": {
+                  "type": "string",
+                  "description": "URL to upload the device configuration file"
+                }
+              },
+              "title": "UpdateDevice Response Schema"
+            },
+            "CreateWorkRequestSchema": {
+              "type": "object",
+              "required": [
+                "DeviceId",
+                "Priority"
+              ],
+              "properties": {
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "Priority": {
+                  "type": "string",
+                  "enum": [
+                    "LOW",
+                    "MEDIUM",
+                    "HIGH"
+                  ],
+                  "description": "Priority to execute the work"
+                }
+              },
+              "title": "CreateWork Request Schema"
+            },
+            "CreateWorkResponseSchema": {
+              "type": "object",
+              "properties": {
+                "WorkId": {
+                  "type": "string",
+                  "description": "UUID of the work"
+                },
+                "UploadUrl": {
+                  "type": "string",
+                  "description": "URL to upload the work payload file"
+                }
+              },
+              "title": "CreateWork Response Schema"
+            },
+            "AddUserRequestSchema": {
+              "type": "object",
+              "required": [
+                "Email",
+                "FullName"
+              ],
+              "properties": {
+                "Email": {
+                  "type": "string",
+                  "description": "Email address of the user"
+                },
+                "FullName": {
+                  "type": "string",
+                  "description": "Full name of the user"
+                }
+              },
+              "title": "AddUser Request Schema"
+            },
+            "AddUserResponseSchema": {
+              "type": "object",
+              "title": "AddUser Response Schema"
+            },
+            "AddDeviceRequestSchema": {
+              "type": "object",
+              "required": [
+                "DeviceName"
+              ],
+              "properties": {
+                "DeviceName": {
+                  "type": "string",
+                  "description": "Name of the device"
+                },
+                "RefreshTimeout": {
+                  "type": "integer",
+                  "description": "Number of seconds since last status update until the device goes offline",
+                  "default": 60
+                }
+              },
+              "title": "AddDevice Request Schema"
+            },
+            "AddDeviceResponseSchema": {
+              "type": "object",
+              "properties": {
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "DeviceName": {
+                  "type": "string",
+                  "description": "Name of the device"
+                },
+                "ClientId": {
+                  "type": "string",
+                  "description": "Client credentials client id used for authentication"
+                },
+                "ClientSecret": {
+                  "type": "string",
+                  "description": "Client credentials client secret used for authentication"
+                }
+              },
+              "title": "AddDevice Response Schema"
+            },
+            "GetDeviceResponseSchema": {
+              "type": "object",
+              "properties": {
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "DeviceName": {
+                  "type": "string",
+                  "description": "Name of the device"
+                },
+                "DeviceStatus": {
+                  "type": "string",
+                  "description": "Current status of the device",
+                  "enum": [
+                    "BUSY",
+                    "ONLINE",
+                    "OFFLINE"
+                  ]
+                },
+                "LastRefreshed": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the last device update"
+                },
+                "ConfigurationLastRefreshed": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the last device configuration update"
+                },
+                "RefreshTimeout": {
+                  "type": "integer",
+                  "description": "Number of seconds after LastRefreshed datetime when device goes OFFLINE"
+                },
+                "DeviceConfigurationUrl": {
+                  "type": "string",
+                  "description": "URL to download latest device configuration"
+                }
+              },
+              "title": "AddDevice Response Schema"
+            },
+            "GetWorkResponseSchema": {
+              "type": "object",
+              "properties": {
+                "WorkId": {
+                  "type": "string",
+                  "description": "UUID of the workload"
+                },
+                "CreatedAt": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the when the job was created"
+                },
+                "ReadyAt": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the when the job was ready for processing"
+                },
+                "WorkStatus": {
+                  "type": "string",
+                  "description": "Current status of the device",
+                  "enum": [
+                    "CREATED",
+                    "READY",
+                    "EXECUTING",
+                    "UPLOADING",
+                    "DONE",
+                    "CANCELED",
+                    "ERROR"
+                  ]
+                },
+                "WorkloadUrl": {
+                  "type": "string",
+                  "description": "URL to download the workload payload file"
+                },
+                "WorkloadResultUrl": {
+                  "type": "string",
+                  "description": "URL to download the workload result file"
+                }
+              },
+              "title": "GetWork Response Schema"
+            },
+            "GetDeviceWorkResponseSchema": {
+              "type": "object",
+              "properties": {
+                "WorkId": {
+                  "type": "string",
+                  "description": "UUID of the work"
+                },
+                "WorkloadUrl": {
+                  "type": "string",
+                  "description": "URL to download the work payload file"
+                }
+              },
+              "title": "CreateWork Response Schema"
+            },
+            "ListDevicesResponseSchema": {
+              "type": "object",
+              "properties": {
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "DeviceName": {
+                  "type": "string",
+                  "description": "Name of the device"
+                },
+                "DeviceStatus": {
+                  "type": "string",
+                  "description": "Current status of the device",
+                  "enum": [
+                    "BUSY",
+                    "ONLINE",
+                    "OFFLINE"
+                  ]
+                },
+                "LastRefreshed": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the last device update"
+                },
+                "RefreshTimeout": {
+                  "type": "integer",
+                  "description": "Number of seconds after LastRefreshed datetime when device goes OFFLINE"
+                }
+              },
+              "title": "ListDevices Response Schema"
+            },
+            "ListWorkResponseSchema": {
+              "type": "object",
+              "properties": {
+                "Items": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ListWorkItemResponseSchema"
+                  }
+                }
+              },
+              "title": "ListWork Response Schema"
+            },
+            "ListWorkItemResponseSchema": {
+              "type": "object",
+              "properties": {
+                "WorkId": {
+                  "type": "string",
+                  "description": "UUID of the workload"
+                },
+                "UserGivenName": {
+                  "type": "string",
+                  "description": "Full name of the user who submitted the work"
+                },
+                "DeviceId": {
+                  "type": "string",
+                  "description": "UUID of the device"
+                },
+                "CreatedAt": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the when the job was created"
+                },
+                "ReadyAt": {
+                  "type": "string",
+                  "description": "ISO-8601 date and time of the when the job was ready for processing"
+                },
+                "WorkStatus": {
+                  "type": "string",
+                  "description": "Current status of the device",
+                  "enum": [
+                    "CREATED",
+                    "READY",
+                    "EXECUTING",
+                    "UPLOADING",
+                    "DONE",
+                    "CANCELED",
+                    "ERROR"
+                  ]
+                }
+              },
+              "title": "ListWorkItem Response Schema"
+            },
+            "PutDeviceWorkResponseSchema": {
+              "type": "object",
+              "properties": {
+                "WorkId": {
+                  "type": "string",
+                  "description": "UUID of the work"
+                },
+                "UploadUrl": {
+                  "type": "string",
+                  "description": "URL to upload the work results file"
+                }
+              },
+              "title": "PutDevice Response Schema"
+            }
+          }
+        },
+        "Description": "",
+        "FailOnWarnings": true,
+        "Name": "qickworkloadapi"
+      }
+    },
+    "qickworkloadapiDefault4XXResponse": {
+      "Type": "AWS::ApiGateway::GatewayResponse",
+      "Properties": {
+        "ResponseType": "DEFAULT_4XX",
+        "RestApiId": {
+          "Ref": "qickworkloadapi"
+        },
+        "ResponseParameters": {
+          "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+          "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+          "gatewayresponse.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+          "gatewayresponse.header.Access-Control-Expose-Headers": "'Date,X-Amzn-ErrorType'"
+        }
+      }
+    },
+    "qickworkloadapiDefault5XXResponse": {
+      "Type": "AWS::ApiGateway::GatewayResponse",
+      "Properties": {
+        "ResponseType": "DEFAULT_5XX",
+        "RestApiId": {
+          "Ref": "qickworkloadapi"
+        },
+        "ResponseParameters": {
+          "gatewayresponse.header.Access-Control-Allow-Origin": "'*'",
+          "gatewayresponse.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
+          "gatewayresponse.header.Access-Control-Allow-Methods": "'DELETE,GET,HEAD,OPTIONS,PATCH,POST,PUT'",
+          "gatewayresponse.header.Access-Control-Expose-Headers": "'Date,X-Amzn-ErrorType'"
+        }
+      }
+    },
+    "DeploymentAPIGWqickworkloadapide9e7114": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "qickworkloadapi"
+        },
+        "Description": "The Development stage deployment of your API.",
+        "StageName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "Prod",
+            {
+              "Ref": "env"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "RootUrl": {
+      "Description": "Root URL of the API gateway",
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "qickworkloadapi"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".amazonaws.com/",
+            {
+              "Fn::If": [
+                "ShouldNotCreateEnvResources",
+                "Prod",
+                {
+                  "Ref": "env"
+                }
+              ]
+            }
+          ]
+        ]
+      }
+    },
+    "ApiName": {
+      "Description": "API Friendly name",
+      "Value": "qickworkloadapi"
+    },
+    "ApiId": {
+      "Description": "API ID (prefix of API URL)",
+      "Value": {
+        "Ref": "qickworkloadapi"
+      }
+    }
+  },
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"custom-customCloudformation\",\"metadata\":{}}"
+}

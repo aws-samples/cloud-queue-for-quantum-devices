@@ -1,0 +1,131 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "env": {
+      "Type": "String"
+    },
+    "functionUploadTriggerArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/UploadTrigger resource"
+    },
+    "functionUploadTriggerName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/UploadTrigger resource"
+    },
+    "functionDeviceUploadTriggerArn": {
+      "Type": "String",
+      "Description": "Input parameter describing Arn attribute for function/DeviceUploadTrigger resource"
+    },
+    "functionDeviceUploadTriggerName": {
+      "Type": "String",
+      "Description": "Input parameter describing Name attribute for function/DeviceUploadTrigger resource"
+    }
+  },
+  "Resources": {
+    "WorkloadBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "NotificationConfiguration": {
+          "LambdaConfigurations": [
+            {
+              "Event": "s3:ObjectCreated:*",
+              "Function": {
+                "Ref": "functionUploadTriggerArn"
+              }
+            }
+          ]
+        },
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "PUT",
+                "POST"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": 3600
+            }
+          ]
+        }
+      }
+    },
+    "DeviceBucket": {
+      "Type": "AWS::S3::Bucket",
+      "Properties": {
+        "NotificationConfiguration": {
+          "LambdaConfigurations": [
+            {
+              "Event": "s3:ObjectCreated:*",
+              "Function": {
+                "Ref": "functionDeviceUploadTriggerArn"
+              }
+            }
+          ]
+        },
+        "CorsConfiguration": {
+          "CorsRules": [
+            {
+              "AllowedHeaders": [
+                "*"
+              ],
+              "AllowedMethods": [
+                "GET",
+                "PUT",
+                "POST"
+              ],
+              "AllowedOrigins": [
+                "*"
+              ],
+              "MaxAge": 3600
+            }
+          ]
+        }
+      }
+    },
+    "BucketPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionUploadTriggerName"
+        },
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    },
+    "DeviceBucketPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Ref": "functionDeviceUploadTriggerName"
+        },
+        "Principal": "s3.amazonaws.com",
+        "SourceAccount": {
+          "Ref": "AWS::AccountId"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "WorkloadBucketName": {
+      "Value": {
+        "Ref": "WorkloadBucket"
+      }
+    },
+    "DeviceBucketName": {
+      "Value": {
+        "Ref": "DeviceBucket"
+      }
+    }
+  },
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"custom-customCloudformation\",\"metadata\":{}}"
+}

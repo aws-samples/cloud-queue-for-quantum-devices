@@ -1,0 +1,172 @@
+{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Parameters": {
+    "env": {
+      "Type": "String"
+    }
+  },
+  "Conditions": {
+    "ShouldNotCreateEnvResources": {
+      "Fn::Equals": [
+        {
+          "Ref": "env"
+        },
+        "NONE"
+      ]
+    }
+  },
+  "Resources": {
+    "WorkloadDynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "WorkId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "AccountIdCreatedAt",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "DeviceId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "StatusPriorityReadyAt",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "CreatedAt",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": [
+          {
+            "AttributeName": "WorkId",
+            "KeyType": "HASH"
+          }
+        ],
+        "TableName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "WorkTable",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "WorkTable-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        },
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "UserWorkGSI",
+            "KeySchema": [
+              {
+                "AttributeName": "DeviceId",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "AccountIdCreatedAt",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          },
+          {
+            "IndexName": "AllUserWorkGSI",
+            "KeySchema": [
+              {
+                "AttributeName": "DeviceId",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "CreatedAt",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            }
+          },
+          {
+            "IndexName": "GetDeviceWorkGSI",
+            "KeySchema": [
+              {
+                "AttributeName": "DeviceId",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "StatusPriorityReadyAt",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "KEYS_ONLY"
+            }
+          }
+        ]
+      }
+    },
+    "DeviceDynamoDBTable": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "DeviceId",
+            "AttributeType": "S"
+          }
+        ],
+        "KeySchema": [
+          {
+            "AttributeName": "DeviceId",
+            "KeyType": "HASH"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": "5",
+          "WriteCapacityUnits": "5"
+        },
+        "TableName": {
+          "Fn::If": [
+            "ShouldNotCreateEnvResources",
+            "DeviceTable",
+            {
+              "Fn::Join": [
+                "",
+                [
+                  "DeviceTable-",
+                  {
+                    "Ref": "env"
+                  }
+                ]
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "WorkloadDynamoDBTableName": {
+      "Value": {
+        "Ref": "WorkloadDynamoDBTable"
+      }
+    },
+    "DeviceDynamoDBTableName": {
+      "Value": {
+        "Ref": "DeviceDynamoDBTable"
+      }
+    }
+  },
+  "Description": "{\"createdOn\":\"Mac\",\"createdBy\":\"Amplify\",\"createdWith\":\"9.2.1\",\"stackType\":\"custom-customCloudformation\",\"metadata\":{}}"
+}
