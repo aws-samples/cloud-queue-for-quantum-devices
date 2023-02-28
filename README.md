@@ -1,5 +1,23 @@
 # AWS Cloud Queue for Quantum Devices
 
+## Overview
+AWS Cloud Queue for Quantum Devices is a cloud-based application which allows quantum researchers to easily and securely submit and manage workloads destined for quantum devices, from anywhere in the world. 
+
+Researchers will primarily use this application through a web interface -- using any modern web browser. Once deployed, administrators create user accounts for researchers, which then will be used to access the secure web interface. Administrators will also integrate the QICK devices with the application which will provide researchers the ability to submit workloads to devices. Once logged in, researchers can view the queues they have access to, view the characteristics of the device attached to the queue, submit experiments, view and manage their queued experiments, and retrieve results once competed. The QICK project has implemented client code, available in their GitHub repo, which uses this application's API. This project was developed in collaboration with the QICK community, for which we are very grateful.
+
+## Architecture
+This application comprises a set of [AWS Serverless](https://aws.amazon.com/serverless/) services. Serverless has the benefits of 1) having no servers to manage, 2) pay-for-value pricing model, continuously scaling, as well as built-in fault tolerance. Below are the specific services used and in what capacity:
+
+- [Amazon Cognito](https://aws.amazon.com/cognito/) - access management for the web interface and APIs
+- [Amazon API Gateway](https://aws.amazon.com/api-gateway/) - APIs that are used to create and manage workloads and devices
+- [Amazon S3](https://aws.amazon.com/s3/) - storage of device and workload metadata, as well as workload results
+- [AWS Amplify](https://aws.amazon.com/amplify/) - set of tools and services to aid rapid software development and deployment
+- [Amazon DynamoDB](https://aws.amazon.com/dynamodb/) - real-time queuing of workloads, as well as available devices
+- [AWS Lambda](https://aws.amazon.com/lambda/) - business logic for managing workloads and devices
+
+Below is the visual representation, as well relationships, of the services mentioned above:
+![Architecture](./assets/architecture.png)
+
 ## Let's Get Started!
 
 ## Prerequisites
@@ -27,7 +45,7 @@ $ amplify init
 ```
 
 5. To deploy the application (include the UI) to the cloud, run `amplify push`, then `amplify publish`.
-6. Now, you will create an Admin user to access the UI and the APIs. Run the following commands:
+6. Now, you will create an Admin user to access the UI and the APIs. Replace <username> with your email address. Run the following commands:
 ```
 export COGNITO_USER_POOL_ID=$(jq -r '.auth[(.auth | keys)[0]].output.UserPoolId' ./amplify/#current-cloud-backend/amplify-meta.json)
 
@@ -36,14 +54,22 @@ aws cognito-idp admin-create-user --user-pool-id $COGNITO_USER_POOL_ID --usernam
 aws cognito-idp admin-add-user-to-group --user-pool-id $COGNITO_USER_POOL_ID --username <username> --group-name Admin
 
 ```
+7. You will receive an email with a temporary password for the initial login.
 
-7. Now sign into the UI! You can retrieve the URL by running the following command:
+8. Now sign into the UI! You can retrieve the URL by running the following command:
 ```
 amplify hosting status
 ```
 
-## Calling the API
-TODO
+9. Open a browser and access the URL. Provide the username (email address) and temporary password to login. On the following screen, you will provide a new password for ongoing use.
+![Login](./assets/login.png)
+
+10. After setting your new password, you should see the AWS Cloud Queue for Quantum Devices UI Portal.
+![Portal](./assets/portal.png)
+
+## Integrations
+- ### [SideQICK](https://github.com/openquantumhardware/qick/tree/main/aws)
+    SideQICK is a Python-based library and CLI that can used to integrate with AWS Cloud Queue for Quantum Devices. The library provides the ability to pull workloads off of the queue, process them, and submit results back for reseachers to consume via the web interface.
 
 ## Running the UI locally
 
