@@ -1,405 +1,647 @@
 {
-  "hosting": {
-    "amplifyhosting": {
-      "service": "amplifyhosting",
-      "providerPlugin": "awscloudformation",
-      "type": "manual"
-    }
-  },
   "auth": {
     "qickworkloadmgmtf902b9a7": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
       "customAuth": false,
+      "dependsOn": [],
       "frontendAuthConfig": {
-        "socialProviders": [],
-        "usernameAttributes": [
-          "EMAIL"
-        ],
-        "signupAttributes": [
-          "EMAIL"
-        ],
-        "passwordProtectionSettings": {
-          "passwordPolicyMinLength": 8,
-          "passwordPolicyCharacters": []
-        },
         "mfaConfiguration": "OFF",
         "mfaTypes": [
           "SMS"
         ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [
+          "EMAIL"
+        ],
         "verificationMechanisms": [
           "EMAIL"
         ]
-      }
-    }
-  },
-  "function": {
-    "ListWork": {
-      "build": true,
+      },
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        }
-      ]
+      "service": "Cognito"
     },
-    "CreateWork": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
+    "userPoolGroups": {
       "dependsOn": [
         {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
           "attributes": [
-            "WorkloadBucketName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        },
-        {
+            "UserPoolId",
+            "AppClientIDWeb",
+            "AppClientID",
+            "IdentityPoolId"
+          ],
           "category": "auth",
-          "resourceName": "qickworkloadmgmtf902b9a7",
-          "attributes": [
-            "UserPoolId"
-          ]
+          "resourceName": "qickworkloadmgmtf902b9a7"
         }
-      ]
-    },
-    "UploadTrigger": {
-      "build": true,
+      ],
       "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        }
-      ]
-    },
-    "ListDevices": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "DeviceDynamoDBTableName"
-          ]
-        }
-      ]
-    },
-    "GetDeviceWork": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
-          "attributes": [
-            "WorkloadBucketName"
-          ]
-        }
-      ]
-    },
-    "PutDeviceWork": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
-          "attributes": [
-            "WorkloadBucketName"
-          ]
-        }
-      ]
-    },
-    "GetDevice": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "DeviceDynamoDBTableName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
-          "attributes": [
-            "DeviceBucketName"
-          ]
-        }
-      ]
-    },
-    "UpdateDevice": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
-          "attributes": [
-            "DeviceBucketName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "DeviceDynamoDBTableName"
-          ]
-        }
-      ]
-    },
-    "DeviceUploadTrigger": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "DeviceDynamoDBTableName"
-          ]
-        }
-      ]
-    },
-    "AddUser": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "qickworkloadmgmtf902b9a7",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    },
-    "AddDevice": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "qickworkloadmgmtf902b9a7",
-          "attributes": [
-            "UserPoolId"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "DeviceDynamoDBTableName"
-          ]
-        }
-      ]
-    },
-    "Authorizer": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "auth",
-          "resourceName": "qickworkloadmgmtf902b9a7",
-          "attributes": [
-            "UserPoolId"
-          ]
-        }
-      ]
-    },
-    "GetWork": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda",
-      "dependsOn": [
-        {
-          "category": "custom",
-          "resourceName": "qickworkloaddatabase",
-          "attributes": [
-            "WorkloadDynamoDBTableName"
-          ]
-        },
-        {
-          "category": "custom",
-          "resourceName": "qickworkloadstorage",
-          "attributes": [
-            "WorkloadBucketName"
-          ]
-        }
-      ]
+      "service": "Cognito-UserPool-Groups"
     }
   },
   "custom": {
     "qickworkloadapi": {
-      "service": "customCloudformation",
-      "providerPlugin": "awscloudformation",
       "dependsOn": [
         {
-          "category": "auth",
-          "resourceName": "qickworkloadmgmtf902b9a7",
           "attributes": [
             "UserPoolId"
-          ]
+          ],
+          "category": "auth",
+          "resourceName": "qickworkloadmgmtf902b9a7"
         },
         {
-          "category": "function",
-          "resourceName": "ListWork",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "ListWork"
         },
         {
-          "category": "function",
-          "resourceName": "CreateWork",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "CreateWork"
         },
         {
-          "category": "function",
-          "resourceName": "ListDevices",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "ListDevices"
         },
         {
-          "category": "function",
-          "resourceName": "GetDeviceWork",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "GetDeviceWork"
         },
         {
-          "category": "function",
-          "resourceName": "PutDeviceWork",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "PutDeviceWork"
         },
         {
-          "category": "function",
-          "resourceName": "UpdateDevice",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "UpdateDevice"
         },
         {
-          "category": "function",
-          "resourceName": "GetDevice",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "GetDevice"
         },
         {
-          "category": "function",
-          "resourceName": "AddUser",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "AddUser"
         },
         {
-          "category": "function",
-          "resourceName": "AddDevice",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "AddDevice"
         },
         {
-          "category": "function",
-          "resourceName": "Authorizer",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "Authorizer"
         },
         {
-          "category": "function",
-          "resourceName": "GetWork",
           "attributes": [
             "Name",
             "Arn"
-          ]
+          ],
+          "category": "function",
+          "resourceName": "GetWork"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "customCloudformation"
+    },
+    "qickworkloaddatabase": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "customCloudformation"
+    },
+    "qickworkloadstorage": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "UploadTrigger"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "DeviceUploadTrigger"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "customCloudformation"
+    }
+  },
+  "function": {
+    "AddDevice": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "qickworkloadmgmtf902b9a7"
+        },
+        {
+          "attributes": [
+            "DeviceDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "AddUser": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "qickworkloadmgmtf902b9a7"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "Authorizer": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "qickworkloadmgmtf902b9a7"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "CreateWork": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        },
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        },
+        {
+          "attributes": [
+            "UserPoolId"
+          ],
+          "category": "auth",
+          "resourceName": "qickworkloadmgmtf902b9a7"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "DeviceUploadTrigger": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "DeviceDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetDevice": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "DeviceDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        },
+        {
+          "attributes": [
+            "DeviceBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetDeviceWork": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        },
+        {
+          "attributes": [
+            "WorkloadBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "GetWork": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        },
+        {
+          "attributes": [
+            "WorkloadBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "ListDevices": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "DeviceDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "ListWork": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "PutDeviceWork": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        },
+        {
+          "attributes": [
+            "WorkloadBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "UpdateDevice": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "DeviceBucketName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloadstorage"
+        },
+        {
+          "attributes": [
+            "DeviceDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "UploadTrigger": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "WorkloadDynamoDBTableName"
+          ],
+          "category": "custom",
+          "resourceName": "qickworkloaddatabase"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "hosting": {
+    "amplifyhosting": {
+      "providerPlugin": "awscloudformation",
+      "service": "amplifyhosting",
+      "type": "manual"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_AddDevice_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AddDevice"
         }
       ]
     },
-    "qickworkloaddatabase": {
-      "service": "customCloudformation",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": []
+    "AMPLIFY_function_AddDevice_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "AddDevice"
+        }
+      ]
     },
-    "qickworkloadstorage": {
-      "service": "customCloudformation",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [
+    "AMPLIFY_function_AddUser_deploymentBucketName": {
+      "usedBy": [
         {
           "category": "function",
-          "resourceName": "UploadTrigger",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
-        },
+          "resourceName": "AddUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_AddUser_s3Key": {
+      "usedBy": [
         {
           "category": "function",
-          "resourceName": "DeviceUploadTrigger",
-          "attributes": [
-            "Name",
-            "Arn"
-          ]
+          "resourceName": "AddUser"
+        }
+      ]
+    },
+    "AMPLIFY_function_Authorizer_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "Authorizer"
+        }
+      ]
+    },
+    "AMPLIFY_function_Authorizer_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "Authorizer"
+        }
+      ]
+    },
+    "AMPLIFY_function_CreateWork_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CreateWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_CreateWork_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "CreateWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_DeviceUploadTrigger_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "DeviceUploadTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_DeviceUploadTrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "DeviceUploadTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetDeviceWork_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetDeviceWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetDeviceWork_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetDeviceWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetDevice_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetDevice"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetDevice_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetDevice"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetWork_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_GetWork_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "GetWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_ListDevices_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ListDevices"
+        }
+      ]
+    },
+    "AMPLIFY_function_ListDevices_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ListDevices"
+        }
+      ]
+    },
+    "AMPLIFY_function_ListWork_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ListWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_ListWork_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ListWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_PutDeviceWork_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PutDeviceWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_PutDeviceWork_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "PutDeviceWork"
+        }
+      ]
+    },
+    "AMPLIFY_function_UpdateDevice_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UpdateDevice"
+        }
+      ]
+    },
+    "AMPLIFY_function_UpdateDevice_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UpdateDevice"
+        }
+      ]
+    },
+    "AMPLIFY_function_UploadTrigger_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UploadTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_function_UploadTrigger_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "UploadTrigger"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_appId": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
+        }
+      ]
+    },
+    "AMPLIFY_hosting_amplifyhosting_type": {
+      "usedBy": [
+        {
+          "category": "hosting",
+          "resourceName": "amplifyhosting"
         }
       ]
     }

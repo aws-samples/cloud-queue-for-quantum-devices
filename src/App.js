@@ -10,7 +10,7 @@ function App({ signOut }) {
     <Container>
       <Navbar bg="light" expand="lg">
         <Container>
-          <Navbar.Brand href="#home">AWS Cloud Queue for Quantum Devices</Navbar.Brand>
+          <Navbar.Brand href="#home">Cloud Queue for Quantum Devices</Navbar.Brand>
           <Nav className="me-justify-content-end">
             <Stack direction="horizontal" gap={2}>
             <Nav.Item>

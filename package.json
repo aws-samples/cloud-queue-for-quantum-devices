@@ -1,5 +1,5 @@
 {
-  "name": "aws-cloud-queue-for-quantum-devices",
+  "name": "cloud-queue-for-quantum-devices",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
