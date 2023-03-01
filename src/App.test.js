@@ -18,6 +18,6 @@ test('renders header', () => {
     <RouterProvider router={router} />
   );
 
-  const headerElement = screen.getByText(/AWS Cloud Queue for Quantum Devices/i);
+  const headerElement = screen.getByText(/Cloud Queue for Quantum Devices/i);
   expect(headerElement).toBeInTheDocument();
 });

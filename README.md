@@ -1,7 +1,7 @@
-# AWS Cloud Queue for Quantum Devices
+# Cloud Queue for Quantum Devices
 
 ## Overview
-AWS Cloud Queue for Quantum Devices is a cloud-based application which allows quantum researchers to easily and securely submit and manage workloads destined for quantum devices, from anywhere in the world. 
+Cloud Queue for Quantum Devices is a cloud-based application which allows quantum researchers to easily and securely submit and manage workloads destined for quantum devices, from anywhere in the world. 
 
 Researchers will primarily use this application through a web interface -- using any modern web browser. Once deployed, administrators create user accounts for researchers, which then will be used to access the secure web interface. Administrators will also integrate the quantum devices with the application which will provide researchers the ability to submit workloads to  devices. Once logged in, researchers can view the queues they have access to, view the characteristics of the device attached to the queue, submit experiments, view and manage their queued experiments, and retrieve results once competed. The QICK project has implemented client code, available in their GitHub repo, which uses this application's API. This project was developed in collaboration with the QICK community, for which we are very grateful.
 
@@ -64,12 +64,12 @@ amplify hosting status
 9. Open a browser and access the URL. Provide the username (email address) and temporary password to login. On the following screen, you will provide a new password for ongoing use.
 ![Login](./assets/login.png)
 
-10. After setting your new password, you should see the AWS Cloud Queue for Quantum Devices UI Portal.
+10. After setting your new password, you should see the Cloud Queue for Quantum Devices UI Portal.
 ![Portal](./assets/portal.png)
 
 ## Integrations
 - ### [SideQICK](https://github.com/openquantumhardware/qick/tree/main/aws)
-    SideQICK is a Python-based library and CLI that can used to integrate with AWS Cloud Queue for Quantum Devices. The library provides the ability to pull workloads off of the queue, process them, and submit results back for reseachers to consume via the web interface.
+    SideQICK is a Python-based library and CLI that can used to integrate with Cloud Queue for Quantum Devices. The library provides the ability to pull workloads off of the queue, process them, and submit results back for reseachers to consume via the web interface.
 
 ## Running the UI locally
 
