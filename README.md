@@ -54,7 +54,6 @@ export OAUTH2_ENDPOINT=$(jq --arg AWS_REGION "$AWS_REGION" -r '"https://" + .aut
 export COGNITO_URL="https://cognito-idp.$AWS_REGION.amazonaws.com/"
 export CLIENT_ID=$(jq -r '.auth[(.auth | keys)[0]].output.AppClientIDWeb' ./amplify/#current-cloud-backend/amplify-meta.json)
 export API_ENDPOINT=$(jq -r '.custom.qickworkloadapi.output.RootUrl' ./amplify/#current-cloud-backend/amplify-meta.json)
-
 ```
 7. Now, you will create an Admin user to access the UI and the APIs. Replace <username> with your email address. Run the following commands:
 ```
