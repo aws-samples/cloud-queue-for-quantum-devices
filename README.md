@@ -45,27 +45,45 @@ $ amplify init
 ```
 
 5. To deploy the application (include the UI) to the cloud, run `amplify push`, then `amplify publish`.
-6. Now, you will create an Admin user to access the UI and the APIs. Replace <username> with your email address. Run the following commands:
-```
-export COGNITO_USER_POOL_ID=$(jq -r '.auth[(.auth | keys)[0]].output.UserPoolId' ./amplify/#current-cloud-backend/amplify-meta.json)
 
+6. For some of the subsequent commands, you need to set some specific environment variables. Run the following commands:
+```
+export AWS_REGION=$(jq -r '.providers.awscloudformation.Region' ./amplify/#current-cloud-backend/amplify-meta.json)
+export COGNITO_USER_POOL_ID=$(jq -r '.auth[(.auth | keys)[0]].output.UserPoolId' ./amplify/#current-cloud-backend/amplify-meta.json)
+export OAUTH2_ENDPOINT=$(jq --arg AWS_REGION "$AWS_REGION" -r '"https://" + .auth[(.auth | keys)[0]].output.HostedUIDomain + ".auth." + $AWS_REGION + ".amazoncognito.com"' ./amplify/#current-cloud-backend/amplify-meta.json)
+export COGNITO_URL="https://cognito-idp.$AWS_REGION.amazonaws.com/"
+export CLIENT_ID=$(jq -r '.auth[(.auth | keys)[0]].output.AppClientIDWeb' ./amplify/#current-cloud-backend/amplify-meta.json)
+export API_ENDPOINT=$(jq -r '.custom.qickworkloadapi.output.RootUrl' ./amplify/#current-cloud-backend/amplify-meta.json)
+```
+7. Now, you will create an Admin user to access the UI and the APIs. Replace <username> with your email address. Run the following commands:
+```
 aws cognito-idp admin-create-user --user-pool-id $COGNITO_USER_POOL_ID --username <username> --user-attributes Name="email",Value="<username>" Name="given_name",Value="<fullname>"
 
 aws cognito-idp admin-add-user-to-group --user-pool-id $COGNITO_USER_POOL_ID --username <username> --group-name Admin
-
 ```
-7. You will receive an email with a temporary password for the initial login.
+8. You will receive an email with a temporary password for the initial login.
 
-8. Now sign into the UI! You can retrieve the URL by running the following command:
+9. Now sign into the UI! You can retrieve the URL by running the following command:
 ```
 amplify hosting status
 ```
 
-9. Open a browser and access the URL. Provide the username (email address) and temporary password to login. On the following screen, you will provide a new password for ongoing use.
+10. Open a browser and access the URL. Provide the username (email address) and temporary password to login. On the following screen, you will provide a new password for ongoing use.
 ![Login](./assets/login.png)
 
-10. After setting your new password, you should see the Cloud Queue for Quantum Devices UI Portal.
+11. After setting your new password, you should see the Cloud Queue for Quantum Devices UI Portal.
 ![Portal](./assets/portal.png)
+
+12. For the integrations listed below, here is a helpful command to print relevant information:
+
+```
+printf '%s\n' \
+    "COGNITO_USER_POOL_ID=$COGNITO_USER_POOL_ID" \
+    "COGNITO_URL=$COGNITO_URL" \
+    "CLIENT_ID=$CLIENT_ID" \
+    "OAUTH2_ENDPOINT=$OAUTH2_ENDPOINT" \
+    "API_ENDPOINT=$API_ENDPOINT"
+```
 
 ## Integrations
 - ### [SideQICK](https://github.com/openquantumhardware/qick/tree/main/aws)
