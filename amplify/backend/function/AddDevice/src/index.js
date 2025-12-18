@@ -1,10 +1,23 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-const AWS = require("aws-sdk");
+
+
+const { CognitoIdentityProvider } = require("@aws-sdk/client-cognito-identity-provider");
+const { DynamoDBDocument } = require("@aws-sdk/lib-dynamodb");
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+
 const crypto = require("crypto");
-const cognito = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'})
-const dynamo = new AWS.DynamoDB.DocumentClient();
+const cognito = new CognitoIdentityProvider({
+    // The key apiVersion is no longer supported in v3, and can be removed.
+    // @deprecated The client uses the "latest" apiVersion.
+    apiVersion: '2016-04-18',
+})
+const dynamo = DynamoDBDocument.from(new DynamoDB(), {
+    marshallOptions: {
+        removeUndefinedValues: true
+    }
+});
 
 const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME;
@@ -25,7 +38,7 @@ async function createDevice(DeviceName, RefreshTimeout) {
         ]
     };
     
-    const { UserPoolClient } = await cognito.createUserPoolClient(params).promise();
+    const { UserPoolClient } = await cognito.createUserPoolClient(params);
     
     const DeviceId = crypto.randomUUID();
     const CreatedAt = new Date().toISOString();
@@ -42,7 +55,7 @@ async function createDevice(DeviceName, RefreshTimeout) {
           LastRefreshed: 0,
           CreatedAt
         }
-      }).promise();
+      });
       
     return {
         DeviceId,

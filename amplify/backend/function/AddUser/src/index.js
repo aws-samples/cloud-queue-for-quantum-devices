@@ -1,8 +1,15 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-const AWS = require("aws-sdk");
-const cognito = new AWS.CognitoIdentityServiceProvider({apiVersion: '2016-04-18'})
+
+
+const { CognitoIdentityProvider } = require("@aws-sdk/client-cognito-identity-provider");
+
+const cognito = new CognitoIdentityProvider({
+    // The key apiVersion is no longer supported in v3, and can be removed.
+    // @deprecated The client uses the "latest" apiVersion.
+    apiVersion: '2016-04-18',
+})
 
 const COGNITO_USER_POOL_ID = process.env.COGNITO_USER_POOL_ID;
 
@@ -13,7 +20,7 @@ async function addUserToGroup(Username, GroupName) {
         GroupName
     };
     
-    return cognito.adminAddUserToGroup(params).promise();
+    return cognito.adminAddUserToGroup(params);
 }
 async function createUser(Email, FullName) {
     const params = {
@@ -32,7 +39,7 @@ async function createUser(Email, FullName) {
         ]
     };
     
-    const user = await cognito.adminCreateUser(params).promise();
+    const user = await cognito.adminCreateUser(params);
     
     await addUserToGroup(Email, "AllDevices");
     

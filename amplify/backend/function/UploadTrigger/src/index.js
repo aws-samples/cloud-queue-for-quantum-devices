@@ -1,9 +1,16 @@
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-const AWS = require("aws-sdk");
 
-const dynamo = new AWS.DynamoDB.DocumentClient();
+
+const { DynamoDBDocument } = require('@aws-sdk/lib-dynamodb');
+const { DynamoDB } = require('@aws-sdk/client-dynamodb');
+
+const dynamo = DynamoDBDocument.from(new DynamoDB(), {
+    marshallOptions: {
+        removeUndefinedValues: true
+    }
+});
 
 const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME;
 
@@ -14,7 +21,7 @@ async function getWork(WorkId) {
         ConsistentRead: true
     };
     
-    const { Item }  = await dynamo.get(params).promise();
+    const { Item }  = await dynamo.get(params);
     
     return Item;
 }
@@ -42,7 +49,7 @@ async function finishWork(WorkId) {
       }
     };
     
-    return dynamo.update(params).promise();
+    return dynamo.update(params);
 }
 
 async function updateWork(WorkId, EventTime, Priority) {
@@ -57,7 +64,7 @@ async function updateWork(WorkId, EventTime, Priority) {
       }
     };
     
-    return dynamo.update(params).promise();
+    return dynamo.update(params);
 }
 
 exports.handler = async (event) => {

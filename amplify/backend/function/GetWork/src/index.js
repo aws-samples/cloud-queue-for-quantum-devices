@@ -1,10 +1,17 @@
-const AWS = require("aws-sdk");
+const { DynamoDBDocument } = require("@aws-sdk/lib-dynamodb");
+const { DynamoDB } = require("@aws-sdk/client-dynamodb");
+const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
+const { GetObjectCommand, S3 } = require("@aws-sdk/client-s3");
 
 // Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
 // SPDX-License-Identifier: MIT-0
 
-const dynamo = new AWS.DynamoDB.DocumentClient();
-const s3 = new AWS.S3();
+const dynamo = DynamoDBDocument.from(new DynamoDB(), {
+    marshallOptions: {
+        removeUndefinedValues: true
+    }
+});
+const s3 = new S3();
 
 const DYNAMODB_TABLE_NAME = process.env.DYNAMODB_TABLE_NAME;
 
@@ -15,7 +22,7 @@ function createPresignedUrl(Bucket, Key, Filename) {
         ResponseContentDisposition: 'attachment; filename ="' + Filename + '"'
      };
 
-    return s3.getSignedUrlPromise('getObject', params);
+    return getSignedUrl(s3, new GetObjectCommand(params));
 }
 
 async function getWork(WorkId) {
@@ -24,7 +31,7 @@ async function getWork(WorkId) {
         TableName: DYNAMODB_TABLE_NAME
     };
     
-    const { Item: Work } = await dynamo.get(params).promise();
+    const { Item: Work } = await dynamo.get(params);
     const { WorkBucket, WorkPath, WorkStatus, CreatedAt, ReadyAt } = Work;
     
     const [ WorkloadUrl, WorkloadResultUrl ] = await Promise.all([
