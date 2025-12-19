@@ -22,7 +22,7 @@ Below is the visual representation, as well relationships, of the services menti
 
 ## Prerequisites
 - [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html): `aws --version` (2.x)
-- [Node.js](https://nodejs.org/en/download/): `node --version` (16.x)
+- [Node.js](https://nodejs.org/en/download/): `node --version` (20.x)
 - [jq](https://stedolan.github.io/jq/): jq --version
 
 ## Setup
